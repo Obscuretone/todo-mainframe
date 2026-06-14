@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>todo-mainframe</title>
+    <link rel="stylesheet" href="/vendor/xterm/css/xterm.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="site-mode">
+    <main class="console-shell">
+      <header class="hero">
+        <p>todo-mainframe</p>
+        <h1>Todos</h1>
+        <nav class="mode-tabs" aria-label="Interface switcher">
+          <button class="active" type="button" data-panel="htmx-panel">Todo App</button>
+          <button type="button" data-panel="terminal-panel">Dial-In Terminal</button>
+        </nav>
+      </header>
+
+      <section id="htmx-panel" class="panel web-panel active-panel">
+        <div class="modern-card">
+          <div class="web-card-header">
+            <div>
+              <p>Your List</p>
+              <h2>Tasks</h2>
+            </div>
+            <span class="status-pill">Live</span>
+          </div>
+          <form class="todo-form" hx-post="/partials/todos" hx-target="#todo-list" hx-swap="innerHTML">
+            <input name="title" maxlength="40" placeholder="Add a new todo" required />
+            <select name="status" aria-label="Initial status">
+              <option value="OPEN">OPEN</option>
+              <option value="DONE">DONE</option>
+            </select>
+            <button type="submit">Add Todo</button>
+          </form>
+          <section
+            id="todo-list"
+            class="todo-list"
+            hx-get="/partials/todos"
+            hx-trigger="load"
+            hx-swap="innerHTML"
+            aria-live="polite"
+          >
+            <p class="empty">CONTACTING HOST...</p>
+          </section>
+        </div>
+        <aside class="crib">
+          <h2>About</h2>
+          <p>
+            A simple todo app with a normal web interface. Add, complete, reopen,
+            and delete tasks without needing to know what runs behind it.
+          </p>
+          <dl>
+            <dt>Add</dt>
+            <dd>Create a task with an optional starting status.</dd>
+            <dt>Complete</dt>
+            <dd>Mark tasks done or reopen them later.</dd>
+            <dt>API</dt>
+            <dd><code>/api/todos</code> is available for integrations.</dd>
+          </dl>
+        </aside>
+      </section>
+
+      <section id="terminal-panel" class="panel terminal-shell" hidden>
+        <section class="bezel">
+          <div class="label-row">
+            <span>TODO-74 MAINFRAME APP</span>
+            <span>LIVE MVS 3270</span>
+          </div>
+          <div class="aid-bar" aria-label="3270 action keys">
+            <button type="button" data-refresh-viewer>Install/Refresh App</button>
+            <button type="button" data-aid="RESET">Reset Keyboard</button>
+            <button type="button" data-aid="CLEAR">Open Logon Panel</button>
+            <button type="button" data-send-text="HERC01">Send HERC01</button>
+            <button type="button" data-send-text="CUL8TR">Send CUL8TR</button>
+            <button type="button" data-aid="ENTER">Continue / Enter</button>
+            <button
+              type="button"
+              data-aid="PF3"
+            >Exit Menu to READY</button>
+            <button
+              type="button"
+              data-aid-before-sequence="CLEAR"
+              data-send-sequence="EXEC 'HERC01.TODO74.CLIST'"
+            >Run Mainframe App</button>
+            <button type="button" data-send-text="L">First Todo</button>
+            <button type="button" data-send-text="N">Next Todo</button>
+            <button type="button" data-send-text="P">Previous Todo</button>
+            <button type="button" data-send-text="A">Add Todo</button>
+            <button type="button" data-send-text="D">Mark Done</button>
+            <button type="button" data-send-text="O">Reopen</button>
+            <button type="button" data-send-text="X">Delete</button>
+            <button type="button" data-send-text="H">Help</button>
+            <button type="button" data-send-text="Q">Quit App</button>
+            <button type="button" data-disconnect-terminal>Disconnect</button>
+            <button type="button" class="danger" data-force-disconnect>Force Drop Sessions</button>
+            <button type="button" class="danger" data-reboot-mainframe>Reboot Mainframe</button>
+          </div>
+          <div id="terminal" class="screen" aria-label="Live MVS 3270 terminal"></div>
+        </section>
+        <aside class="crib">
+          <h2>Mainframe Todo App</h2>
+          <p>Use this exact live 3270 flow. The app should show <code>TODO-74 MAINFRAME MANAGEMENT V6</code>.</p>
+          <ol class="steps">
+            <li><strong>Install app</strong>: click <em>Install/Refresh App</em> and wait for the submitted message.</li>
+            <li><strong>Open logon</strong>: on the Hercules splash, click <em>Reset Keyboard</em>, then <em>Open Logon Panel</em>.</li>
+            <li><strong>User</strong>: click <em>Send HERC01</em>.</li>
+            <li><strong>Password</strong>: click <em>Send CUL8TR</em>.</li>
+            <li><strong>Welcome screens</strong>: click <em>Continue / Enter</em> until the TSO Applications menu appears.</li>
+            <li><strong>Reach READY</strong>: on the TSO Applications menu, click <em>Exit Menu to READY</em>.</li>
+            <li><strong>Start app</strong>: at <code>READY</code>, click <em>Run Mainframe App</em>. It calls the fresh <code>TODO74</code> COBOL module.</li>
+            <li><strong>Browse todos</strong>: click <em>First Todo</em>, <em>Next Todo</em>, or <em>Previous Todo</em>. Each command shows one todo and returns to <code>CMD</code>.</li>
+            <li><strong>Manage todos</strong>: click <em>Add Todo</em> and type a title, or click <em>Mark Done</em>, <em>Reopen</em>, or <em>Delete</em> and type the shown todo ID.</li>
+          </ol>
+          <p class="note">Best logout: at <code>READY</code>, type <code>LOGOFF</code> and press Enter, then click <em>Disconnect</em>. If logon says USERID IN USE, click <em>Force Drop Sessions</em>; if MVS stays wedged, click <em>Reboot Mainframe</em> and wait about 90 seconds.</p>
+        </aside>
+      </section>
+    </main>
+    <script src="/vendor/htmx/htmx.min.js"></script>
+    <script src="/vendor/xterm/lib/xterm.js"></script>
+    <script src="/vendor/xterm-fit/lib/addon-fit.js"></script>
+    <script src="/terminal.js"></script>
+  </body>
+</html>

@@ -1,0 +1,463 @@
+:root {
+  color-scheme: light;
+  --web-bg: #f6f7fb;
+  --web-card: #ffffff;
+  --web-text: #172033;
+  --web-muted: #667085;
+  --web-line: #e6e9f0;
+  --web-blue: #2563eb;
+  --web-blue-dark: #1d4ed8;
+  --web-red: #dc2626;
+  --web-green: #16a34a;
+  --phosphor: #83ff70;
+  --dim: #3aa84b;
+  --case: #191b16;
+  --glass: #061005;
+  --paper: #dad5ad;
+  --danger: #ff8a65;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--web-bg);
+  color: var(--web-text);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+
+body.terminal-page {
+  color-scheme: dark;
+  background:
+    radial-gradient(circle at 50% 15%, #364030, transparent 35rem),
+    linear-gradient(135deg, #111, #252018);
+  color: var(--phosphor);
+}
+
+body.terminal-page .hero p,
+body.terminal-page .hero h1 {
+  color: var(--phosphor);
+}
+
+body.terminal-page .mode-tabs {
+  border-color: rgba(131, 255, 112, 0.28);
+  background: rgba(6, 16, 5, 0.78);
+}
+
+body.terminal-page .mode-tabs button {
+  color: var(--phosphor);
+}
+
+body.terminal-page .mode-tabs button.active {
+  background: var(--phosphor);
+  color: var(--glass);
+}
+
+.console-shell {
+  width: min(1180px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 36px 0;
+}
+
+.hero {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.hero p {
+  margin: 0 0 6px;
+  color: var(--web-muted);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.hero h1 {
+  margin: 0;
+  color: var(--web-text);
+  font-size: clamp(2rem, 5vw, 3.7rem);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.mode-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid var(--web-line);
+  border-radius: 999px;
+  background: var(--web-card);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+}
+
+.mode-tabs button {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--web-muted);
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.mode-tabs button.active {
+  background: var(--web-blue);
+  color: white;
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.modern-card,
+.web-panel .crib {
+  border: 1px solid var(--web-line);
+  border-radius: 24px;
+  background: var(--web-card);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+}
+
+.modern-card {
+  padding: 24px;
+}
+
+.web-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.web-card-header p,
+.web-card-header h2 {
+  margin: 0;
+}
+
+.web-card-header p {
+  color: var(--web-muted);
+  font-weight: 700;
+}
+
+.web-card-header h2 {
+  color: var(--web-text);
+  font-size: 1.8rem;
+  letter-spacing: -0.03em;
+}
+
+.status-pill {
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  padding: 7px 12px;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.todo-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 130px auto;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.todo-form input,
+.todo-form select {
+  width: 100%;
+  border: 1px solid var(--web-line);
+  border-radius: 12px;
+  background: white;
+  color: var(--web-text);
+  padding: 12px 14px;
+  outline: none;
+}
+
+.todo-form input:focus,
+.todo-form select:focus {
+  border-color: var(--web-blue);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.todo-form button,
+.todo-actions button {
+  border: 0;
+  border-radius: 12px;
+  background: var(--web-blue);
+  color: white;
+  padding: 11px 14px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.todo-form button:hover,
+.todo-actions button:hover {
+  background: var(--web-blue-dark);
+}
+
+.todo-list {
+  min-height: 360px;
+  border: 1px solid var(--web-line);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fbfcff;
+}
+
+.todo-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid var(--web-line);
+}
+
+.todo-card:last-child {
+  border-bottom: 0;
+}
+
+.todo-card strong,
+.todo-card span {
+  display: block;
+}
+
+.todo-card strong {
+  color: var(--web-text);
+}
+
+.todo-card span,
+.empty,
+.web-panel .crib dd,
+.web-panel .crib p {
+  color: var(--web-muted);
+}
+
+.empty {
+  margin: 0;
+  padding: 18px;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.todo-actions button.danger {
+  background: #fee2e2;
+  color: var(--web-red);
+}
+
+.todo-actions button.danger:hover {
+  background: #fecaca;
+}
+
+.web-panel .crib {
+  padding: 24px;
+  line-height: 1.55;
+}
+
+.web-panel .crib h2 {
+  margin-top: 0;
+  color: var(--web-text);
+  font-size: 1.3rem;
+}
+
+.web-panel dt {
+  margin-top: 16px;
+  color: var(--web-text);
+  font-weight: 800;
+}
+
+.web-panel dd {
+  margin-left: 0;
+}
+
+.web-panel code {
+  color: var(--web-blue);
+}
+
+.terminal-shell {
+  color: var(--phosphor);
+  font-family: "Courier New", Courier, monospace;
+}
+
+.terminal-shell .crib,
+.bezel {
+  color: var(--paper);
+  font-family: "Courier New", Courier, monospace;
+}
+
+.bezel {
+  padding: 22px;
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 30%),
+    var(--case);
+  box-shadow:
+    inset 0 0 0 3px #080907,
+    inset 0 0 24px rgba(255, 255, 255, 0.06),
+    0 28px 70px rgba(0, 0, 0, 0.55);
+}
+
+.terminal-shell .crib {
+  padding: 24px;
+  border-radius: 22px;
+  background: rgba(10, 11, 9, 0.82);
+  line-height: 1.5;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.terminal-shell .crib h2,
+.terminal-shell dt {
+  color: var(--phosphor);
+}
+
+.terminal-shell dd {
+  margin-left: 0;
+  color: #bdb895;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  color: var(--paper);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+}
+
+
+
+.aid-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.aid-bar button {
+  border: 1px solid rgba(131, 255, 112, 0.45);
+  border-radius: 999px;
+  background: rgba(6, 16, 5, 0.82);
+  color: var(--phosphor);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 800;
+}
+
+.aid-bar button:hover:not(:disabled) {
+  background: var(--phosphor);
+  color: var(--glass);
+}
+
+.aid-bar button.danger {
+  border-color: rgba(255, 138, 101, 0.65);
+  color: var(--danger);
+}
+
+.aid-bar button.danger:hover:not(:disabled) {
+  background: var(--danger);
+  color: #160805;
+}
+
+.aid-bar button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.steps {
+  margin: 0;
+  padding-left: 1.35rem;
+}
+
+.steps li {
+  margin: 0 0 12px;
+  color: #bdb895;
+}
+
+.steps strong,
+.steps em {
+  color: var(--phosphor);
+  font-style: normal;
+}
+
+.note {
+  color: #bdb895;
+  border-top: 1px solid rgba(131, 255, 112, 0.18);
+  margin-top: 18px;
+  padding-top: 16px;
+}
+
+.screen {
+  height: min(64vh, 620px);
+  overflow: auto;
+  padding: 14px;
+  border: 4px solid #0b0d09;
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(131, 255, 112, 0.05),
+      rgba(131, 255, 112, 0.05) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    radial-gradient(circle at center, rgba(131, 255, 112, 0.12), transparent 70%),
+    var(--glass);
+  box-shadow:
+    inset 0 0 24px rgba(131, 255, 112, 0.12),
+    inset 0 0 90px rgba(0, 0, 0, 0.75);
+  text-shadow: 0 0 7px rgba(131, 255, 112, 0.8);
+}
+
+.xterm {
+  height: 100%;
+  padding: 10px;
+}
+
+.xterm .xterm-viewport {
+  background: transparent !important;
+}
+
+.xterm .xterm-screen {
+  filter: drop-shadow(0 0 5px rgba(131, 255, 112, 0.45));
+}
+
+@media (max-width: 920px) {
+  .hero {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .panel,
+  .terminal-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .todo-form {
+    grid-template-columns: 1fr;
+  }
+}

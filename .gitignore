@@ -1,0 +1,13 @@
+node_modules/
+bin/
+data/
+.DS_Store
+npm-debug.log
+
+# Hercules runtime output
+mainframe/prt/*
+!mainframe/prt/.gitkeep
+mainframe/pch/*
+!mainframe/pch/.gitkeep
+mainframe/rdr/*
+!mainframe/rdr/.gitkeep

@@ -1,0 +1,33 @@
+name: todo-mainframe
+
+services:
+  api:
+    build: .
+    image: todo-mainframe
+    depends_on:
+      - mainframe
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./mainframe/prt:/app/mainframe/prt:ro
+      - ./mainframe/cards:/app/mainframe/cards
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      TODO70_COBOL_HOST: "Hercules MVS 3.8J"
+      MAINFRAME_READER_HOST: mainframe
+      MAINFRAME_READER_PORT: "3505"
+      MAINFRAME_SPOOL_DIR: /app/mainframe/prt
+      MAINFRAME_CONTAINER_NAME: todo-mainframe-mainframe-1
+
+  mainframe:
+    image: skissane/mvs38j:latest
+    platform: linux/amd64
+    ports:
+      - "3270:3270"
+      - "3505:3505"
+    volumes:
+      - ./mainframe/prt:/tk4/prt
+      - ./mainframe/pch:/tk4/pch
+      - ./mainframe/rdr:/tk4/rdr
+    stdin_open: true
+    tty: true
